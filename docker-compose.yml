@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+    frontend:
+        image: ourapp/frontend
+        ports:
+            - 8080:80
+        networks:
+            - frontend
+        env_file: .env
+    backend:
+        image: ourapp/backend
+        ports:
+            - 8000:5000
+        networks:
+            - frontend
+            - backend
+        env_file: .env
+
+    redis:
+        image: redis:alpine
+        networks:
+            - backend
+
+networks:
+    frontend: {}
+    backend: {}
+

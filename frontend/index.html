@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <title>Test page</title>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+        <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+
+            <div class="well well-sm" style="margin: 3rem;">
+                <h1 class="text-center">Bootstrap Todo</h1>
+            </div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                    </tr>
+                </thead>
+
+                <tbody id="table">
+                    <tr>
+                        <td>
+                            <input type="text" class="form-control" id="task">
+                        </td>
+                        <td>
+                            <button type="button" id="add-button" class="btn btn-default">Add</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function() {
+
+                $.get('/api/list', function(data){
+                    var tasks = $.parseJSON(data);
+                    for(var i=0; i < tasks.length; i++){
+                        $("#table").prepend("<tr><td>" + tasks[i] + "</td></tr>");
+                    }
+                });
+
+                $("#add-button").click(function() {
+                    if ($("#task").val().trim() != '') {
+
+                        var task = $("#task").val();
+                        var priority = $("#priority").val();
+                        $('#task').val('');
+                        $('#priority').val('Low');
+                        $.ajax({
+                            type: 'POST',
+                            url: '/api/add',
+                            data: JSON.stringify ({task: task, priority: priority}),
+                            success: function(data) { console.log('data: ' , data); },
+                            contentType: "application/json",
+                            dataType: 'json'
+                        });
+                    } else {
+
+                        alert("You can't do *nothing* as a task!");
+
+                    }
+                });
+
+                $(document).on('click', '#remove-button', function() {
+                    $(this).parent().parent().remove();
+                });
+
+            });
+        </script>
+    </body>
+</html>

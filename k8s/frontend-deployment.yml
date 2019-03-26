@@ -1,0 +1,29 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+    name: frontend-deployment
+    labels:
+        targetto: frontend
+spec:
+    replicas: 2
+    selector:
+        matchLabels:
+            app: frontend
+    template:
+        metadata:
+            labels:
+                app: frontend
+        spec:
+            containers:
+                - name: nginx
+                  image: ourapp/frontend:latest
+                  imagePullPolicy: Never
+                  ports:
+                      - containerPort: 8080
+                  env:
+                      - name: BACKEND_HOST
+                        value: backend-service
+                      - name: BACKEND_PORT
+                        value: 5000
+                      - name: API_ENDPOINT
+                        value: http://backend-service/api

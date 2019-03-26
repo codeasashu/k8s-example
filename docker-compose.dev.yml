@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+    frontend:
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile.dev
+        volumes:
+            - /todo/frontend:/usr/share/nginx/html
+            - /todo/frontend/conf:/etc/nginx/conf.d
+    backend:
+        build:
+            context: ./backend
+            dockerfile: Dockerfile
+        volumes:
+            - /todo/backend:/app

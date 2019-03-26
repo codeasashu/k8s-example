@@ -1,0 +1,33 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+    name: backend-deployment
+    labels:
+        targetto: backend
+spec:
+    replicas: 3
+    selector:
+        matchLabels:
+            app: backend
+    template:
+        metadata:
+            labels:
+                app: backend
+        spec:
+            containers:
+                - name: backendapp
+                  image: ourapp/backend:latest
+                  imagePullPolicy: Never
+                  ports:
+                      - containerPort: 8000
+                  env:
+                      - name: FLASK_APP
+                        value: /app/app.py
+                      - name: FLASK_ENV
+                        value: development
+                      - name: FLASK_DEBUG
+                        value: 1
+                      - name: REDIS_HOST
+                        value: redis-service
+                      - name: REDIS_PORT
+                        value: 6379
