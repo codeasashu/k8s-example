@@ -6,11 +6,11 @@ services:
             context: ./frontend
             dockerfile: Dockerfile.dev
         volumes:
-            - /todo/frontend:/usr/share/nginx/html
-            - /todo/frontend/conf:/etc/nginx/conf.d
+            - ./frontend:/usr/share/nginx/html
+            - ./frontend/conf:/etc/nginx/conf.d
     backend:
         build:
             context: ./backend
             dockerfile: Dockerfile
         volumes:
-            - /todo/backend:/app
+            - ./backend:/app

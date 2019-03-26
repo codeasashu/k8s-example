@@ -19,11 +19,9 @@ spec:
                   image: ourapp/frontend:latest
                   imagePullPolicy: Never
                   ports:
-                      - containerPort: 8080
+                      - containerPort: 80
                   env:
-                      - name: BACKEND_HOST
-                        value: backend-service
-                      - name: BACKEND_PORT
-                        value: 5000
-                      - name: API_ENDPOINT
-                        value: http://backend-service/api
+                      - name: "BACKEND_HOST"
+                        value: "backend-service"
+                      - name: "BACKEND_PORT"
+                        value: "5000"

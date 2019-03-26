@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: app-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+      - host: app.myop.test
+        http:
+          paths:
+            - path: /app/?(.*)
+              backend:
+                serviceName: frontend-service
+                servicePort: 8080
+
+      - host: api.myop.test
+        http:
+            - path: /api/?(.*)
+              backend:
+                serviceName: backend-service
+                servicePort: 5000

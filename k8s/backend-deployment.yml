@@ -19,15 +19,15 @@ spec:
                   image: ourapp/backend:latest
                   imagePullPolicy: Never
                   ports:
-                      - containerPort: 8000
+                      - containerPort: 5000
                   env:
-                      - name: FLASK_APP
-                        value: /app/app.py
-                      - name: FLASK_ENV
-                        value: development
-                      - name: FLASK_DEBUG
-                        value: 1
-                      - name: REDIS_HOST
-                        value: redis-service
-                      - name: REDIS_PORT
-                        value: 6379
+                      - name: "FLASK_APP"
+                        value: "/app/app.py"
+                      - name: "FLASK_ENV"
+                        value: "development"
+                      - name: "FLASK_DEBUG"
+                        value: "1"
+                      - name: "REDIS_HOST"
+                        value: "redis-service"
+                      - name: "REDIS_PORT"
+                        value: "6379"

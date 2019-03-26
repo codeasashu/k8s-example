@@ -15,8 +15,7 @@ spec:
                 app: redis
         spec:
             containers:
-                - name: nginx
+                - name: redis
                   image: redis:alpine
-                  imagePullPolicy: Never
                   ports:
-                      - containerPort: 8080
+                      - containerPort: 6379
